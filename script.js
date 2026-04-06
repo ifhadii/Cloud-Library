@@ -59,4 +59,33 @@ document.addEventListener('DOMContentLoaded', () => {
     faders.forEach(fader => {
         appearOnScroll.observe(fader);
     });
+
+    // Custom Cursor
+    const cursorDot = document.querySelector('[data-cursor-dot]');
+    const cursorOutline = document.querySelector('[data-cursor-outline]');
+
+    if (cursorDot && cursorOutline) {
+        window.addEventListener('mousemove', function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
+        });
+
+        const hoverElements = document.querySelectorAll('a, button, .service-card, .feature-item, .tech-icon');
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('hover-effect');
+                cursorDot.style.transform = "translate(-50%, -50%) scale(0.5)";
+            });
+            element.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('hover-effect');
+                cursorDot.style.transform = "translate(-50%, -50%) scale(1)";
+            });
+        });
+    }
 });
